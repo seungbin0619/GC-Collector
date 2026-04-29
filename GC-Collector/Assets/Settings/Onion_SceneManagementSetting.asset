@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4379756671128520676
+MonoBehaviour:
+  m_ObjectHideFlags: 55
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d489d1ad0d993504b977b1cca7f685f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenes: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ccab20caa3dbb4290996fd6733bc1e, type: 3}
+  m_Name: Onion_SceneManagementSetting
+  m_EditorClassIdentifier: 
+  overlappedLoad: 0
+  useBootstrap: 1
+  bootstrapScene:
+    asset: {fileID: 102900000, guid: bb9459d109a9d834bbfd5c2bc348a61a, type: 3}
+    _guid: bb9459d109a9d834bbfd5c2bc348a61a

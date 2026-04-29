@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.onion.scenemanagement": {
+      "version": "https://github.com/onion-unity/onion-scene-management.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5cacda6d6446e31478c6d17355a5d4e346e01f85"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
       "depth": 0,
