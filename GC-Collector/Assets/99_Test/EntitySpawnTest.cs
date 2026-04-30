@@ -15,12 +15,13 @@ public class EntitySpawnTest : MonoBehaviour {
             float posX = position.x;
             float posY = position.y;
 
-            ComponentStorage<MoveComponent>.Add(id, new MoveComponent() {
+            ComponentStorage<RigidbodyComponent>.Add(id, new RigidbodyComponent() {
                 position = new float2(posX, posY),
-                speed = Random.Range(0.5f, 1.5f)
+                speed = Random.Range(0.5f, 1.5f),
+                radius = 0.2f,
             });
         }
 
-        Debug.Log($"total entities: {ComponentStorage<MoveComponent>.Count}");
+        Debug.Log($"total entities: {ComponentStorage<RigidbodyComponent>.Count}");
     }
 }

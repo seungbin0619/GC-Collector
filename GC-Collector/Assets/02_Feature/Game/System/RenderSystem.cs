@@ -9,10 +9,10 @@ public class RenderSystem : MonoBehaviour {
     private Matrix4x4[] _matrices = new Matrix4x4[1023];
 
     void Update() {
-        int count = ComponentStorage<MoveComponent>.Count;
+        int count = ComponentStorage<RigidbodyComponent>.Count;
         if (count == 0) return;
 
-        var data = ComponentStorage<MoveComponent>.Data;
+        var data = ComponentStorage<RigidbodyComponent>.Data;
         int remaining = count;
         int currentIndex = 0;
 
