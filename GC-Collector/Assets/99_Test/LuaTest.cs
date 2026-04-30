@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gcc.Core.Lua; // 작성하신 네임스페이스 [cite: 2536]
+using Gcc.Core.Lua;
 
 public class LuaTest : MonoBehaviour {
     void Start() {

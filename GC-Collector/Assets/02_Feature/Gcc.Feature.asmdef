@@ -1,0 +1,17 @@
+{
+    "name": "Gcc.Feature",
+    "rootNamespace": "",
+    "references": [
+        "GUID:25c566acaf6b86947a8244fd96d7de1d",
+        "GUID:946e9c1123565774dad6182f441be2c0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

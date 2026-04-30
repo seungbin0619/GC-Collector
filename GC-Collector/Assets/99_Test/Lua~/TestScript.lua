@@ -1,6 +1,6 @@
 local M = {}
 
-TestValue = 160
+TestValue = 100
 print("<color=green>[Lua]</color> TestScript Loaded! Value: " .. TestValue)
 
 function M.ShowMessage()

@@ -35,6 +35,19 @@ namespace Gcc.Core.Lua {
             SetupLiveReloading();
         }
 
+        private static byte[] GetLuaScriptBytes(ref string name) {
+            if (_nameToPathMap?.TryGetValue(name, out var script) != true) {
+                return null;
+            }
+
+            if (!File.Exists(script)) {
+                Debug.LogError($"Lua script not found: {script}");
+                return null;
+            }
+
+            return File.ReadAllBytes(script);
+        }
+
         private static void InjectLuaTick() {
             var loopSystem = PlayerLoop.GetCurrentPlayerLoop();
             var luaTickSystem = new PlayerLoopSystem {
@@ -80,8 +93,6 @@ namespace Gcc.Core.Lua {
                 if (!_nameToPathMap.ContainsKey(name)) {
                     _nameToPathMap[name] = path;
                     _pathToNameMap[path] = name;
-
-                    Debug.Log($"Registered Lua script: {name} at path: {path}");
                 }
                 else  {
                     Debug.LogWarning($"Duplicate Lua script name detected: {name}. Path: {path}, Existing Path: {_nameToPathMap[name]}");
@@ -107,19 +118,6 @@ namespace Gcc.Core.Lua {
             var path = new UnityPath(e.FullPath);
             
             _pendingReloads.Enqueue(path);
-        }
-
-        private static byte[] GetLuaScriptBytes(ref string name) {
-            if (_nameToPathMap?.TryGetValue(name, out var script) != true) {
-                return null;
-            }
-
-            if (!File.Exists(script)) {
-                Debug.LogError($"Lua script not found: {script}");
-                return null;
-            }
-
-            return File.ReadAllBytes(script);
         }
 
         private static void Tick() {
