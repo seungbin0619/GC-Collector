@@ -2,5 +2,5 @@ using Unity.Mathematics;
 using XLua;
 
 namespace Gcc.Core.Entities {
-    public interface IComponentData { }
+    public interface IComponent { }
 }

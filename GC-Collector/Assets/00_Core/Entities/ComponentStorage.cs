@@ -1,14 +1,18 @@
+using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Gcc.Core.Entities {
-    public static class ComponentStorage<T> where T : struct, IComponentData {
+    public static class ComponentStorage<T> where T : struct, IComponent {
         private static NativeArray<T> _data;
         public static NativeArray<T> Data => _data;
+        
+        private static NativeArray<int> _ids;
+        public static NativeArray<int>.ReadOnly Ids => _ids.AsReadOnly();
+
         private static NativeParallelHashMap<int, int> _idToIndexMap;
-        private static NativeParallelHashMap<int, int> _indexToIdMap;
 
         public static int Count { get; private set; }
         public static int Capacity => Environment.MaxEntities;
@@ -16,7 +20,7 @@ namespace Gcc.Core.Entities {
         static ComponentStorage() {
             _data = new(Capacity, Allocator.Persistent);
             _idToIndexMap = new(Capacity, Allocator.Persistent);
-            _indexToIdMap = new(Capacity, Allocator.Persistent);
+            _ids = new(Capacity, Allocator.Persistent);
             Count = 0;
 
             Environment.OnEntityDestroyed += Remove;
@@ -28,13 +32,15 @@ namespace Gcc.Core.Entities {
                 // ...
                 return;
             }
-
+            
             _data[Count] = component;
             _idToIndexMap.TryAdd(id, Count);
-            _indexToIdMap.TryAdd(Count, id);
+            _ids[Count] = id;
 
             Count++;
         }
+
+        public static void Add(int id) => Add(id, default);
 
         public static void Remove(int id) {
             if (!_idToIndexMap.TryGetValue(id, out var index)) {
@@ -46,15 +52,12 @@ namespace Gcc.Core.Entities {
                 var data = _data[lastIndex];
                 _data[index] = data;
 
-                if (_indexToIdMap.TryGetValue(lastIndex, out var lastId)) {
-                    _idToIndexMap[lastId] = index;
-                    _indexToIdMap[index] = lastId;
-                }
+                int lastId = _ids[lastIndex];
+                _ids[index] = lastId;
+                _idToIndexMap[lastId] = index;
             }
 
             _idToIndexMap.Remove(id);
-            _indexToIdMap.Remove(lastIndex);
-
             Count--;
         }
 
@@ -68,13 +71,21 @@ namespace Gcc.Core.Entities {
             return ref UnsafeUtility.ArrayElementAsRef<T>(ptr, index);
         }
 
+        public static int IdOf(int index) {
+            if (index < 0 || index >= Count) {
+                throw new IndexOutOfRangeException($"Index {index} is out of range.");
+            }
+
+            return _ids[index];
+        }
+
         public static void Dispose() {
             Application.quitting -= Dispose;
             Environment.OnEntityDestroyed -= Remove;
             
             if (_data.IsCreated) _data.Dispose();
             if (_idToIndexMap.IsCreated) _idToIndexMap.Dispose();
-            if (_indexToIdMap.IsCreated) _indexToIdMap.Dispose();
+            if (_ids.IsCreated) _ids.Dispose();
         }
     }
 }

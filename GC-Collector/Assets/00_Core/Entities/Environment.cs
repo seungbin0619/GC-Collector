@@ -25,6 +25,10 @@ namespace Gcc.Core.Entities {
             Application.quitting += Dispose;
         }
 
+        public static bool IsEntityAlive(int id) {
+            return _idToIndexMap.ContainsKey(id);
+        }
+
         public static int CreateEntity() {
             if (!_freeIds.IsCreated || !_freeIds.TryDequeue(out int id)) {
                 id = _nextId++;

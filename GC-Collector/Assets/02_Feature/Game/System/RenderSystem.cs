@@ -1,6 +1,6 @@
 using UnityEngine;
 using Gcc.Core.Entities;
-using Gcc.Shared.Entity.Data;
+using Gcc.Shared.Component;
 
 public class RenderSystem : MonoBehaviour {
     public Mesh entityMesh;
