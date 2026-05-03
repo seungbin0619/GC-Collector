@@ -1,14 +1,15 @@
 using UnityEngine;
 using Gcc.Core.Entities;
 using Gcc.Shared.Component;
+using Gcc.Shared.System;
 
-public class RenderSystem : MonoBehaviour {
+public class RenderSystem : MonoSystem, IUpdateSystem {
     public Mesh entityMesh;
     public Material entityMaterial;
 
     private Matrix4x4[] _matrices = new Matrix4x4[1023];
 
-    void Update() {
+    public void OnUpdate(float deltaTime) {
         int count = ComponentStorage<RigidbodyComponent>.Count;
         if (count == 0) return;
 
